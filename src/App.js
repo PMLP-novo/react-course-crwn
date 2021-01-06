@@ -4,10 +4,10 @@ import {HomePage} from './pages/homepage/homepage'
 import {ShopPage} from './pages/shop/shop'
 import SignInOrUp from './pages/SignInOrUp'
 import Header from './components/Header'
-import {Route} from 'react-router-dom';
+import {Route, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux'
 import {auth, createUserprofileDocument} from './firebase/firebase.utils'
-import{setCurrentUser} from './redux/user/user'
+import{setCurrentUser} from './redux/user.store'
 
 class App extends React.Component{
   unsubscribeFromAuth = null
@@ -32,7 +32,7 @@ class App extends React.Component{
       <Header />
       <Route exact path='/' component={HomePage}/>
       <Route path='/shop' component={ShopPage}/>
-      <Route path='/signin' component={SignInOrUp}/>
+      <Route exact path='/signin' render={()=>this.props.currentUser?<Redirect to='/'/>:<SignInOrUp/>}/>
     </div>)
 
   }
@@ -43,4 +43,7 @@ function mapDispatchToProps(dispatch){
   return {setCurrentUser:user=>dispatch(setCurrentUser(user))}
 }
 
-export default connect(null,mapDispatchToProps)(App);
+function mapStateToProps(state){
+  return {currentUser:state.user.currentUser}
+}
+export default connect(mapStateToProps,mapDispatchToProps)(App);
