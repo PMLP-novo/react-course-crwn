@@ -1,7 +1,9 @@
+import {createSelector} from 'reselect'
 const INITIAL_STATE = {
     hidden:true,
     items:[]
 }
+
 function addItemToCart(currentItems, newItem){
     if (currentItems.find(item=>item.id === newItem.id)){
         return currentItems.map(
@@ -32,3 +34,16 @@ export function toggleCartHidden(){
 export function addCartItem(item){
     return {type:"ADD_CART_ITEM",payload:item}
 }
+
+const selectCart = state=>state.cart;
+
+export const selectCartItems = createSelector(
+    [selectCart],
+    cart=> cart.items
+)
+
+
+export const selectCartItemCount = createSelector(
+    [selectCartItems],
+    items=>items.reduce((accumalated, item)=>accumalated+item.quantity,0)
+)
