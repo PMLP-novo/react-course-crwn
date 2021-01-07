@@ -3,6 +3,7 @@ import React from 'react'
 import {HomePage} from './pages/homepage/homepage'
 import {ShopPage} from './pages/shop/shop'
 import SignInOrUp from './pages/SignInOrUp'
+import CheckoutPage from './pages/Checkout'
 import Header from './components/Header'
 import {Route, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux'
@@ -33,6 +34,7 @@ class App extends React.Component{
       <Route exact path='/' component={HomePage}/>
       <Route path='/shop' component={ShopPage}/>
       <Route exact path='/signin' render={()=>this.props.currentUser?<Redirect to='/'/>:<SignInOrUp/>}/>
+      <Route path='/checkout' component={CheckoutPage}/>
     </div>)
 
   }

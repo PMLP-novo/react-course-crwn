@@ -2,6 +2,7 @@ import React from 'react';
 import './Header.scss';
 import {Link} from 'react-router-dom'
 import {ReactComponent as Logo} from '../../assests/crown.svg'
+import {selectCurrentUser} from '../../redux/user.store'
 import {auth} from '../../firebase/firebase.utils'
 import {connect} from 'react-redux'
 import CartIcon from '../CartIcon'
@@ -32,7 +33,7 @@ const Header = ({currentUser,hidden}) => (
 );
 
 const mapStateToProps = state => ({
-  currentUser:state.user.currentUser,
+  currentUser:selectCurrentUser,
   hidden:state.cart.hidden
 })
 
