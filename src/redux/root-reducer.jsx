@@ -3,6 +3,7 @@ import {persistReducer} from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import {userReducer} from "./user.store"
 import {cartReducer} from "./cart.store"
+import {shopReducer} from "./shop.store"
 
 const persistsConfig ={
     key:'root',
@@ -10,6 +11,6 @@ const persistsConfig ={
     whitelist:['cart']
 }
 
-const rootReducer = combineReducers({'user':userReducer, "cart":cartReducer})
+const rootReducer = combineReducers({'user':userReducer, "cart":cartReducer,"shop":shopReducer})
 
 export default persistReducer(persistsConfig, rootReducer)
